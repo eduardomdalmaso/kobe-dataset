@@ -48,4 +48,4 @@ st.pyplot(fignum)
 
 from sklearn import metrics
 
-st.write(metrics.classification_report(df_dev.target, df_dev.prediction_label))
+st.write(metrics.classification_report(df_dev.shot_distance, df_dev.prediction_label))

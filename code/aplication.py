@@ -9,7 +9,6 @@ import mlflow
 from mlflow.models.signature import infer_signature
 from mlflow.tracking import MlflowClient
 
-
 # Para usar o sqlite como repositorio
 mlflow.set_tracking_uri("sqlite:///mlruns.db")
 
@@ -22,13 +21,13 @@ experiment_id = experiment.experiment_id
 
 
 
-data_cols = ['lat','lon', 'minutes_remaining','period', 'playoffs','shot_distance','shot_made_flag']
+data_cols = ['lat','lon', 'minutes_remaining','period', 'playoffs']
 
 with mlflow.start_run(experiment_id=experiment_id, run_name = 'PipelineAplicacao'):
 
     model_uri = f"models:/model_kobe@staging"
     loaded_model = mlflow.sklearn.load_model(model_uri)
-    data_prod = pd.read_parquet('D:\\repositorios\\kobe-dataset\\data\\raw\\base_prod.parquet')
+    data_prod = pd.read_parquet('D:\\repositorios\\kobe-dataset\\data\\raw\\dataset_kobe_prod.parquet')
 
     Y = loaded_model.predict_proba(data_prod[data_cols])[:,1]
     data_prod['predict_score'] = Y
